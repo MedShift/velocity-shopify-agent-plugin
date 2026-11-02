@@ -1,0 +1,100 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "velocity-for-shopify",
+  "version": "1.0.0",
+  "description": "Manage sales reps, teams, customer ownership, and commissions in Velocity for your Shopify store.",
+  "author": {
+    "name": "MedShift",
+    "email": "support@medshift.com",
+    "url": "https://velocity.medshift.com"
+  },
+  "homepage": "https://velocity.medshift.com/velocity-commerce/",
+  "license": "LicenseRef-Proprietary",
+  "keywords": [
+    "shopify",
+    "b2b",
+    "sales-reps",
+    "commission",
+    "velocity"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Velocity for Shopify",
+        "shortDescription": "Manage reps and commissions",
+        "longDescription": "Velocity is a Shopify app for B2B brands that sell through sales reps: manufacturers, distributors, and wholesalers whose field and inside reps manage accounts and place orders. Velocity calculates commission on every order. It pays reps by account ownership or by territory, and pays each manager above them on the team.\n\nWith Velocity for Shopify, ChatGPT can manage your sales team:\n- Reps: add, update, enable, or disable reps.\n- Rep Portal access: give reps a portal login, change what they can see, or remove access.\n- Teams: get the rep and manager structure of each team.\n- Account ownership: assign Shopify customers, companies, and locations to reps.\n- Commissions: find commissions by rep, order, or date range.\n\nVelocity identifies customers, companies, locations, and orders by their Shopify IDs. Connect Shopify to look up their names.\n\nRequires the Velocity Premium plan: https://apps.shopify.com/velocity-commission-maps",
+        "developerName": "MedShift",
+        "category": "Productivity",
+        "websiteURL": "https://velocity.medshift.com/velocity-commerce/",
+        "supportURL": "https://docs.medshift.com/velocity-commission-maps/en/",
+        "privacyPolicyURL": "https://velocity.medshift.com/privacy-policy/",
+        "termsOfServiceURL": "https://velocity.medshift.com/terms-of-service/",
+        "logo": "./assets/logo.png",
+        "brandColor": "#0E2036",
+        "brandColorDark": "#F8A581",
+        "defaultPrompt": [
+          "Show last month's commissions by rep.",
+          "Who are the reps and managers on each of my teams?",
+          "Which customers and companies does each rep own?"
+        ]
+      },
+      "review": {
+        "commerce": false,
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List teams",
+              "prompt": "What sales teams do I have in Velocity?",
+              "tools_triggered": "teams_list",
+              "expected_behavior": "Lists each team by name."
+            },
+            {
+              "description": "Show a team's structure",
+              "prompt": "Show the reps and managers on my first team.",
+              "tools_triggered": "teams_list, teams_hierarchy_list",
+              "expected_behavior": "Shows the team's rep levels, with each rep under their manager."
+            },
+            {
+              "description": "Find commissions by date range",
+              "prompt": "Show last month's commissions, grouped by rep.",
+              "tools_triggered": "commissions_list",
+              "expected_behavior": "Lists commissions on last month's orders, with a total for each rep and manager."
+            },
+            {
+              "description": "Find account ownership",
+              "prompt": "Which customers, companies, and locations do the reps on my first team own?",
+              "tools_triggered": "teams_list, teams_hierarchy_list, ownerships_list",
+              "expected_behavior": "Lists each owned customer, company, or location ID with the name of the rep who owns it."
+            },
+            {
+              "description": "Create a rep with Rep Portal access",
+              "prompt": "Add a new rep named Taylor Reviewer with the email taylor.reviewer@example.com, and give them a Rep Portal login.",
+              "tools_triggered": "reps_create, reps_account_create",
+              "expected_behavior": "Creates the rep, gives them a Rep Portal login, and confirms the rep's name and email."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Request unrelated to sales reps or commissions",
+              "prompt": "What's the weather in Chicago today?",
+              "expected_behavior": "Does not call any Velocity tools."
+            },
+            {
+              "description": "Shopify order change that Velocity does not do",
+              "prompt": "Refund order #1001.",
+              "expected_behavior": "Does not call any Velocity tools. Says that Velocity cannot refund or change Shopify orders."
+            },
+            {
+              "description": "Commission payout that Velocity does not do",
+              "prompt": "Pay my reps their commissions for last month.",
+              "expected_behavior": "Does not call any Velocity write tools. Says that Velocity calculates commissions but does not send payments."
+            }
+          ]
+        }
+      },
+      "publication": {
+        "release_notes": "Initial plugin release."
+      }
+    }
+  }
+}

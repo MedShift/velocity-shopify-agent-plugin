@@ -1,0 +1,19 @@
+{
+  "name": "velocity-for-shopify",
+  "displayName": "Velocity for Shopify",
+  "version": "1.0.0",
+  "description": "Manage sales reps, teams, customer ownership, and commissions in Velocity for your Shopify store.",
+  "author": {
+    "name": "MedShift",
+    "email": "support@medshift.com",
+    "url": "https://velocity.medshift.com"
+  },
+  "homepage": "https://velocity.medshift.com/velocity-commerce/",
+  "license": "LicenseRef-Proprietary",
+  "keywords": ["shopify", "b2b", "sales-reps", "commission", "velocity"],
+  "icon": "./assets/logo.png",
+  "documentationUrl": "https://api-docs.velocity.shop/guides/velocity-mcp",
+  "supportUrl": "https://docs.medshift.com/velocity-commission-maps/en/",
+  "privacyPolicyUrl": "https://velocity.medshift.com/privacy-policy/",
+  "termsOfServiceUrl": "https://velocity.medshift.com/terms-of-service/"
+}

@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release plugin ZIPs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(jq -r .version plugin.json)
+          if gh release view "v$version" > /dev/null 2>&1; then
+            exit 0
+          fi
+          zip -r "claude-$version.zip" .claude-plugin .mcp.json README.md assets skills
+          zip -r "chatgpt-$version.zip" plugin.json mcp.json assets skills
+          gh release create "v$version" "claude-$version.zip" "chatgpt-$version.zip" --target "$GITHUB_SHA" --title "v$version"
