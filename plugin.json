@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "velocity-for-shopify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manage sales reps, teams, customer ownership, and commissions in Velocity for your Shopify store.",
   "author": {
     "name": "MedShift",
@@ -67,10 +67,10 @@
               "expected_behavior": "Lists each owned customer, company, or location ID with the name of the rep who owns it."
             },
             {
-              "description": "Create a rep with Rep Portal access",
-              "prompt": "Add a new rep named Taylor Reviewer with the email taylor.reviewer@example.com, and give them a Rep Portal login.",
-              "tools_triggered": "reps_create, reps_account_create",
-              "expected_behavior": "Creates the rep, gives them a Rep Portal login, and confirms the rep's name and email."
+              "description": "Create a rep",
+              "prompt": "Add a new rep named Taylor Reviewer with the email taylor.reviewer@example.com.",
+              "tools_triggered": "reps_create",
+              "expected_behavior": "Creates the rep and confirms the rep's name and email."
             }
           ],
           "negative": [
@@ -93,7 +93,7 @@
         }
       },
       "publication": {
-        "release_notes": "Initial plugin release."
+        "release_notes": "The assistant now asks which permissions to give a rep before it creates a Rep Portal login."
       }
     }
   }
